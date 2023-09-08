@@ -1,0 +1,28 @@
+.game-panel {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-panel__level-select {
+  border: none;
+  display: flex;
+  padding: 0;
+  align-items: end;
+}
+
+.game-panel__level-select label {
+  cursor: pointer;
+  padding: 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color ease 470ms;
+}
+
+.game-panel__level-select label:has(input:checked) {
+  border-color: var(--board-border-color);
+}
+
+.game-panel__level-select input {
+  display: none;
+}

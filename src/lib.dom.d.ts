@@ -1,0 +1,3 @@
+interface HTMLFieldSetElement {
+  value: string;
+}

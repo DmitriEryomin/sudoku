@@ -10,9 +10,6 @@ export const NumbersPanel = () => {
   const fillValue = useGameStore(state => state.fillValue);
   const numbers = useGameStore(state => state.numbersMap);
 
-  console.log(numbers);
-  
-
   return (
     <div className={numbersPanelBem()}>
       {Object.entries(numbers).map(([key, value]) => (

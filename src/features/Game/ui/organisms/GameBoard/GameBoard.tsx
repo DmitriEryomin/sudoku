@@ -60,9 +60,6 @@ export const GameBoard = () => {
     newGame();
   }, [newGame]);
 
-  console.log(board);
-  
-
   return (
     <div className={boardBem()}>
       {board === null

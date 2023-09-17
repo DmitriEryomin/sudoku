@@ -43,8 +43,10 @@
   cursor: pointer;
 }
 
-.game-board__cell:not(.game-board__cell_generated):not(.game-board__cell_selected):hover {
-  background-color: rgba(163, 167, 238, 0.5);
+@media screen and (min-width: 1024px) {
+  .game-board__cell:not(.game-board__cell_generated):not(.game-board__cell_selected):hover {
+    background-color: rgba(163, 167, 238, 0.5);
+  }
 }
 
 .game-board__cell:nth-child(3n):not(:last-child) {

@@ -9,12 +9,14 @@
 .numbers-panel__item {
   cursor: pointer;
   width: 3rem;
-  transition: transform ease 200ms;
+  transition: transform ease 175ms;
   will-change: transition;
 }
 
-.numbers-panel__item:hover {
-  transform: scale(1.2);
+@media screen and (min-width: 1024px) {
+  .numbers-panel__item:hover {
+    transform: scale(1.3);
+  }
 }
 
 .numbers-panel__item_hidden {

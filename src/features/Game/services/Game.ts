@@ -21,13 +21,13 @@ export const Game = new (class {
     let digitsCount: number;
     switch (level) {
       case 'ease':
-        digitsCount = 53;
+        digitsCount = 40;
         break;
       case 'medium':
-        digitsCount = 67;
+        digitsCount = 50;
         break;
       case 'hard':
-        digitsCount = 79;
+        digitsCount = 60;
         break;
     }
 

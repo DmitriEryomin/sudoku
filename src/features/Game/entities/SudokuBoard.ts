@@ -108,17 +108,88 @@ export class SudokuBoard {
     return result;
   }
 
-  removeDigits(n: number) {
-    let count = n;
+  #isSafe(row: number, col: number, num: number) {
+    // Check the row
+    for (let i = 0; i < this.#size; i++) {
+      if (this.#board[row][i].value === num) return false;
+    }
 
-    while (count !== 0) {
-      const i = Math.floor(Math.random() * this.#size);
-      const j = Math.floor(Math.random() * this.#size);
-      if (this.#board[i][j].value !== 0) {
-        count--;
-        this.#board[i][j].value = '';
+    // Check the column
+    for (let i = 0; i < this.#size; i++) {
+      if (this.#board[i][col].value === num) return false;
+    }
+
+    // Check the 3x3 subgrid
+    const startRow = row - (row % 3);
+    const startCol = col - (col % 3);
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.#board[i + startRow][j + startCol].value === num) return false;
       }
     }
+
+    return true;
+  }
+
+  #countSolutions() {
+    let solutionCount = 0;
+
+    const solve = () => {
+      for (let row = 0; row < this.#size; row++) {
+        for (let col = 0; col < this.#size; col++) {
+          // Find an empty cell
+          if (this.#board[row][col].value === '') {
+            for (let num = 1; num <= 9; num++) {
+              // Try placing each number in the cell
+              if (this.#isSafe(row, col, num)) {
+                this.#board[row][col].value = num;
+
+                // Recursively try to solve the rest of the this.#board
+                if (solve()) {
+                  // If a solution is found, increment the count
+                  solutionCount++;
+                  if (solutionCount > 1) return false; // If more than one solution, stop
+                }
+
+                // Backtrack
+                this.#board[row][col].value = '';
+              }
+            }
+            // If no number can be placed in this cell, backtrack
+            return false;
+          }
+        }
+      }
+      // If all cells are filled, the Sudoku is solved
+      return true;
+    };
+
+    solve();
+    return solutionCount;
+  }
+
+  removeDigits(n: number) {
+    let removedCount = 0;
+
+    while (removedCount <= n) {
+      const row = Math.floor(Math.random() * this.#size);
+      const col = Math.floor(Math.random() * this.#size);
+
+      if (this.#board[row][col].value !== 0) {
+        const removedNumber = this.#board[row][col].value;
+        this.#board[row][col].value = '';
+
+        // Check the number of solutions with the number removed
+        if (this.#countSolutions() !== 1) {
+          // If removing the number leads to multiple solutions, revert the change
+          this.#board[row][col].value = removedNumber;
+          removedCount--;
+        } else {
+          removedCount++;
+        }
+      }
+    }
+
     return this.#board;
   }
 }

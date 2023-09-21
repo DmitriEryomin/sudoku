@@ -68,7 +68,6 @@ export const GameBoard = () => {
             <div
               key={`row-${row}`}
               className={boardBem('row')}
-              style={{ margin: '0', display: 'flex' }}
             >
               {cell.map(({ value, isGenerated, isWrong }, column) => (
                 <div

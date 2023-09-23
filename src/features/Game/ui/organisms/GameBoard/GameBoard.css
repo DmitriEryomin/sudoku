@@ -25,11 +25,12 @@
   vertical-align: middle;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) and (orientation: portrait) {
   .game-board__cell {
-    width: 10vmin;
-    height: 10vmin;
-    line-height: 10vmin;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 1.9rem;
   }
 }
 

@@ -1,6 +1,7 @@
 .numbers-panel {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   font-size: 2rem;
+  text-align: center;
   display: flex;
   justify-content: space-between;
   color: var(--table-cell-generated-color);

@@ -21,7 +21,7 @@ export const GamePanel = () => {
     }, 270);
   };
 
-  const handleChange = ({ target }: ChangeEvent<HTMLFieldSetElement>) => {
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const value = target.value as 'ease' | 'hard' | 'medium';
 
     selectLevel(value);
@@ -30,19 +30,40 @@ export const GamePanel = () => {
 
   return (
     <div className={gamePanel()}>
-      <button onClick={startNewGame}>New Game</button>
-      <fieldset onChange={handleChange} className={gamePanel('level-select')}>
+      <button className={gamePanel('new-game')} onClick={startNewGame}>New Game</button>
+      <fieldset className={gamePanel('level-select')}>
         <label htmlFor="ease">
           Ease
-          <input name="level" id="ease" type="radio" value="ease" checked={level === 'ease'} />
+          <input
+            name="level"
+            id="ease"
+            type="radio"
+            value="ease"
+            checked={level === 'ease'}
+            onChange={handleChange}
+          />
         </label>
         <label htmlFor="medium">
           Medium
-          <input name="level" id="medium" type="radio" value="medium" checked={level === 'medium'}  />
+          <input
+            name="level"
+            id="medium"
+            type="radio"
+            value="medium"
+            checked={level === 'medium'}
+            onChange={handleChange}
+          />
         </label>
         <label htmlFor="hard">
           Hard
-          <input name="level" id="hard" type="radio" value="hard" checked={level === 'hard'}  />
+          <input
+            name="level"
+            id="hard"
+            type="radio"
+            value="hard"
+            checked={level === 'hard'}
+            onChange={handleChange}
+          />
         </label>
       </fieldset>
     </div>

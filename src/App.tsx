@@ -1,6 +1,6 @@
 import './App.css';
 
-import { GameBoard, NumbersPanel, GamePanel } from '@game/ui';
+import { GameBoard, NumbersPanel, GamePanel, ActionsPanel } from '@game/ui';
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       <GamePanel />
       <GameBoard />
       <NumbersPanel />
+      <ActionsPanel />
     </>
   );
 }

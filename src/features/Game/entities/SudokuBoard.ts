@@ -169,13 +169,17 @@ export class SudokuBoard {
   }
 
   removeDigits(n: number) {
-    let removedCount = 0;
+    let removedCount = 0, attempts = 0, prevRow = 0, prevCol = 0;
+    const maxRemoveAttempts = 90;
+    
+    while (removedCount < n) {
+      const row = Math.floor(Math.random() * (this.#size - prevRow) + prevRow);
+      const col = Math.floor(Math.random() * (this.#size - prevCol) + prevCol);
 
-    while (removedCount <= n) {
-      const row = Math.floor(Math.random() * this.#size);
-      const col = Math.floor(Math.random() * this.#size);
+      if (this.#board[row][col].value !== '') {
+        prevRow = col;
+        prevCol = row;
 
-      if (this.#board[row][col].value !== 0) {
         const removedNumber = this.#board[row][col].value;
         this.#board[row][col].value = '';
 
@@ -183,10 +187,18 @@ export class SudokuBoard {
         if (this.#countSolutions() !== 1) {
           // If removing the number leads to multiple solutions, revert the change
           this.#board[row][col].value = removedNumber;
-          removedCount--;
+          if (attempts < maxRemoveAttempts) {
+            attempts++;
+            removedCount--;
+          } else {
+            removedCount++;
+          }
         } else {
           removedCount++;
         }
+      } else {
+        prevRow = 0;
+        prevCol = 0;
       }
     }
 

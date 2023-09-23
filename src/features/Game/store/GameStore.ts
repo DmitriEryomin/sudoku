@@ -39,6 +39,7 @@ type GameStore = {
   setAnimation: (animation: boolean) => void;
   selectCell: (i: number, j: number) => void;
   fillValue: (value: number) => void;
+  removeValue: () => void;
   initNumbersMap: () => void;
   selectLevel: (level: 'ease' | 'medium' | 'hard') => void;
 };
@@ -88,6 +89,20 @@ export const useGameStore = create<GameStore>((set, get) => ({
         },
       });
     }
+  },
+  removeValue: () => {
+    const { selectedCell, board } = get();
+    const { i, j } = selectedCell;
+    if (isNaN(i) || isNaN(j)) {
+      return;
+    }
+
+    const clonedBoard = structuredClone(board) as UICell[][];
+    if (clonedBoard[i][j].isWrong) {
+      clonedBoard[i][j].value = '';
+    }
+
+    set({ board: clonedBoard });
   },
   initNumbersMap: () => {
     const { board, numbersMap } = get();

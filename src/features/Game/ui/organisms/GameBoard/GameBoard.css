@@ -23,6 +23,8 @@
   text-align: center;
   line-height: 3rem;
   vertical-align: middle;
+  background-color: rgba(134, 140, 245, 0);
+  transition: background-color ease 0.25s;
 }
 
 @media screen and (max-width: 1024px) and (orientation: portrait) {
@@ -42,9 +44,6 @@
   color: rgba(255, 71, 71, 0.85);
 }
 
-.game-board__cell_selected {
-  background-color: rgba(134, 140, 245, 0.85);
-}
 .game-board__cell_selected {
   background-color: rgba(134, 140, 245, 0.85);
 }

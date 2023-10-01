@@ -76,6 +76,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
     if (isNaN(i) || isNaN(j)) {
       return;
     }
+  
+    if (clonedBoard[i][j].value !== '' && !clonedBoard[i][j].isWrong) {
+      return;
+    }
+
     clonedBoard[i][j].value = value;
     const isWrong = !Game.check(i, j, value);
     clonedBoard[i][j].isWrong = isWrong;

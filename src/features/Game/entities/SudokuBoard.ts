@@ -185,8 +185,23 @@ export class SudokuBoard {
     return false;
   }
 
-  removeDigits(numToRemove: number, level: 'ease' | 'medium' | 'hard'): Cell[][] {
+  generatePuzzle(level: 'ease' | 'medium' | 'hard'): [Cell[][], Cell[][]] {
+    let numToRemove: number;
+    switch (level) {
+      case 'ease':
+        numToRemove = randomNumber(36, 45);
+        break;
+      case 'medium':
+        numToRemove = randomNumber(46, 55);
+        break;
+      case 'hard':
+        numToRemove = randomNumber(56, 60);
+        break;
+    }
+
     let attempts = 0;
+    const filledBoard = structuredClone(this.#board);
+
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < numToRemove / 3; j++) {
         const row = randomNumber(3 * i, 3 * (i + 1) - 1);
@@ -209,9 +224,9 @@ export class SudokuBoard {
     
     if (attempts > numToRemove / 3 || this.#isRowColumnFullyFilled(level)) {
       this.#createBoard();
-      return this.removeDigits(numToRemove, level);
+      return this.generatePuzzle(level);
     }
     
-    return this.#board;
+    return [this.#board, filledBoard];
   }
 }

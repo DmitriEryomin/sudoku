@@ -1,27 +1,8 @@
-# React + TypeScript + Vite
+# Sudoku
+Sudoku is a popular and engaging number puzzle game that challenges players to fill a 9x9 grid with digits so that each column, each row, and each of the nine 3x3 subgrids, known as "regions" or "boxes," contains all of the digits from 1 to 9. The puzzle starts with some cells pre-filled with numbers, strategically placed to ensure that there is only one solution to the puzzle. The objective of Sudoku is to logically deduce and systematically fill in the remaining cells, adhering to the rules and restrictions of the game.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Github pages
+[Play Sudoku]
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+[Play Sudoku]: <https://dmitrieryomin.github.io/sudoku>

@@ -1,4 +1,5 @@
 import { shuffleArray } from '@services/Array';
+import { randomNumber } from '@services/Number';
 
 export interface Cell {
   value: number | '';
@@ -13,12 +14,16 @@ export class SudokuBoard {
   }
 
   constructor() {
-    this.#generateEmptyTable();
+    this.#createBoard();
+  }
+
+  #createBoard() {
+    this.#generateEmptyBoard();
     this.#fillDiagonalSquares();
     this.#fillRemaining(0, 3);
   }
 
-  #generateEmptyTable() {
+  #generateEmptyBoard() {
     for (let row = 0; row < this.#size; row++) {
       this.#board[row] = [];
       for (let column = 0; column < this.#size; column++) {
@@ -168,40 +173,45 @@ export class SudokuBoard {
     return solutionCount;
   }
 
-  removeDigits(n: number) {
-    let removedCount = 0, attempts = 0, prevRow = 0, prevCol = 0;
-    const maxRemoveAttempts = 90;
-    
-    while (removedCount < n) {
-      const row = Math.floor(Math.random() * (this.#size - prevRow) + prevRow);
-      const col = Math.floor(Math.random() * (this.#size - prevCol) + prevCol);
+  #isRowColumnFullyFilled(level: 'ease' | 'medium' | 'hard') {
+    const maxFilledNumbers = level === 'ease' ? 7 : 6;
+    for (let row = 0; row < this.#size; row++) {
+      const notEmptyRows = this.#board[row].filter(({ value }) => value !== '');
+      
+      if (notEmptyRows.length > maxFilledNumbers) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-      if (this.#board[row][col].value !== '') {
-        prevRow = col;
-        prevCol = row;
+  removeDigits(numToRemove: number, level: 'ease' | 'medium' | 'hard'): Cell[][] {
+    let attempts = 0;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < numToRemove / 3; j++) {
+        const row = randomNumber(3 * i, 3 * (i + 1) - 1);
+        const col = randomNumber(0, 8);
 
+        if (this.#board[row][col].value === '') {
+          j--;
+          continue;
+        }
+        
         const removedNumber = this.#board[row][col].value;
         this.#board[row][col].value = '';
 
-        // Check the number of solutions with the number removed
         if (this.#countSolutions() !== 1) {
-          // If removing the number leads to multiple solutions, revert the change
           this.#board[row][col].value = removedNumber;
-          if (attempts < maxRemoveAttempts) {
-            attempts++;
-            removedCount--;
-          } else {
-            removedCount++;
-          }
-        } else {
-          removedCount++;
+          attempts++;
         }
-      } else {
-        prevRow = 0;
-        prevCol = 0;
       }
     }
-
+    
+    if (attempts > numToRemove / 3 || this.#isRowColumnFullyFilled(level)) {
+      this.#createBoard();
+      return this.removeDigits(numToRemove, level);
+    }
+    
     return this.#board;
   }
 }

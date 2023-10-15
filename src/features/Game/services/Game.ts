@@ -1,3 +1,5 @@
+import { randomNumber } from '@services/Number';
+
 import { Cell, SudokuBoard } from '../entities/SudokuBoard';
 
 export interface UICell extends Cell {
@@ -13,26 +15,24 @@ export const Game = new (class {
     return this.#board;
   }
   new(level: 'ease' | 'medium' | 'hard'): UICell[][] {
-    
-    
     const sudokuBoard = new SudokuBoard();
     this.#filledBoard = structuredClone(sudokuBoard.board);
 
     let digitsCount: number;
     switch (level) {
       case 'ease':
-        digitsCount = 38;
+        digitsCount = randomNumber(36, 45);
         break;
       case 'medium':
-        digitsCount = 45;
+        digitsCount = randomNumber(46, 55);
         break;
       case 'hard':
-        digitsCount = 55;
+        digitsCount = randomNumber(56, 60);
         break;
     }
 
     return sudokuBoard
-      .removeDigits(digitsCount)
+      .removeDigits(digitsCount, level)
       .map((row) => row.map(({ value }) => ({ value, isGenerated: !!value, isWrong: false })));
   }
   check(i: number, j: number, value: number) {
